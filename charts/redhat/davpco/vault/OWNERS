@@ -1,0 +1,10 @@
+chart:
+  name: vault
+  shortDescription: The DavP Helm chart for installing and configuring
+    Vault on OpenShift.
+publicPgpKey: null
+users:
+- githubUsername: dperaza4dustbit
+vendor:
+  label: davpco
+  name: DAVP Co.
