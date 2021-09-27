@@ -153,7 +153,8 @@ def main():
     print(f"create charts pull request")
     branch_name = f"Release-{args.version}"
     message = f'Workflow and script updates from development repository {branch_name}'
-    outcome = gitutils.create_pr(branch_name,[],gitutils.CHARTS_REPO,message)
+    #outcome = gitutils.create_pr(branch_name,[],gitutils.CHARTS_REPO,message)
+    outcome = gitutils.PR_NOT_NEEDED
     if outcome == gitutils.PR_CREATED:
         print(f'::set-output name=charts_pr_created::true')
     elif outcome == gitutils.PR_NOT_NEEDED:
