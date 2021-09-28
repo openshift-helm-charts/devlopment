@@ -190,5 +190,6 @@ jobs:
         with:
           tag_name: ${{ steps.check_merge_and_release.outputs.release_tag }}
           body: ${{ steps.check_merge_and_release.outputs.release_body }}
+          target_commitish: "test"
         env:
           GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
