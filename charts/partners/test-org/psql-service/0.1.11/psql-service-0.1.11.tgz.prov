@@ -1,0 +1,27 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+annotations:
+  charts.openshift.io/archs: x86_64
+  charts.openshift.io/name: PSQL RedHat Demo Chart
+  charts.openshift.io/provider: RedHat
+  charts.openshift.io/supportURL: https://github.com/dperaza4dustbit/helm-chart
+apiVersion: v2
+appVersion: 10.0.0
+description: A Helm chart for a RedHat Certified PSQL
+kubeVersion: '>=1.20.0'
+name: psql-service
+type: application
+version: 0.1.11
+
+...
+files:
+  psql-service-0.1.11.tgz: sha256:1205312f570d9608d17626f559c9280c2dde9b37ae0e6214c00c0e16c477fe10
+-----BEGIN PGP SIGNATURE-----
+
+wpwEAQEKABAFAmM2W5oJEEV3oA9/h3YwAAA9jAQAG/Dz7nMFFphl7Zvzlu8mqbPU
+xd2BjahzsepMYCpRqVBFtf8U8TvaZtcTc043utAlnjHKfTMylUXQCuZRmGTRqjme
+9ZMWoRfN18/BcCMyp0Gro/yTy/Tjqsv5VBqR7CgBQlLZ9cR4eeTeTWqd4S9ldlU5
+wmRykT9j0jZq9GPTS6M=
+=k6d2
+-----END PGP SIGNATURE-----
