@@ -379,14 +379,10 @@ def main():
         print("[INFO] Check if report exist as part of the commit")
         report_exists, report_path = check_report_exists(category, organization, chart, version)
         chart_file_name = f"{chart}-{version}.tgz"
+
         if report_exists:
             shutil.copy(report_path, "report.yaml")
         else:
-            tag = os.environ.get("CHART_NAME_WITH_VERSION")
-            if not tag:
-                print("[ERROR] Internal error: missing chart name with version (tag)")
-                sys.exit(1)
-            print(f"::set-output name=tag::{tag}")
             print("[INFO] Generate report")
             report_path = generate_report(chart_file_name)
 
@@ -400,10 +396,11 @@ def main():
         report_path = os.path.join("charts", category, organization, chart, version, "report.yaml")
         print("[INFO] Creating index from report")
         chart_entry, chart_url = create_index_from_report(category, report_path)
-        tag = os.environ.get("CHART_NAME_WITH_VERSION")
-        if not tag:
-            print("[ERROR] Internal error: missing chart name with version (tag)")
-            sys.exit(1)
-        print(f"::set-output name=tag::{tag}")
+
+    tag = os.environ.get("CHART_NAME_WITH_VERSION")
+    if not tag:
+        print("[ERROR] Internal error: missing chart name with version (tag)")
+        sys.exit(1)
+    print(f"::set-output name=tag::{tag}")
 
     update_index_and_push(indexfile,indexdir, args.repository, branch, category, organization, chart, version, chart_url, chart_entry, args.pr_number, provider_delivery)
