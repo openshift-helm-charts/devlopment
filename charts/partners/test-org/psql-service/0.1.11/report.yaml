@@ -1,0 +1,94 @@
+apiversion: v1
+kind: verify-report
+metadata:
+    tool:
+        verifier-version: 1.8.0
+        profile:
+            VendorType: partner
+            version: v1.2
+        chart-uri: ./psql-service-0.1.11.tgz
+        digests:
+            chart: sha256:df41f5fb2134bceb4b3340c1bf795cc6191835250738cae089aa2c278db04491
+            package: 1205312f570d9608d17626f559c9280c2dde9b37ae0e6214c00c0e16c477fe10
+            publicKey: 1cc31121e86388fad29e4cc6fc6660f102f43d8c52ce5f7d54e134c3cb94adc2
+        lastCertifiedTimestamp: "2022-10-10T15:23:42.277707-04:00"
+        testedOpenShiftVersion: "4.11"
+        supportedOpenShiftVersions: '>=4.7'
+        providerControlledDelivery: false
+    chart:
+        name: psql-service
+        home: ""
+        sources: []
+        version: 0.1.11
+        description: A Helm chart for a RedHat Certified PSQL
+        keywords: []
+        maintainers: []
+        icon: ""
+        apiversion: v2
+        condition: ""
+        tags: ""
+        appversion: 10.0.0
+        deprecated: false
+        annotations:
+            charts.openshift.io/archs: x86_64
+            charts.openshift.io/name: PSQL RedHat Demo Chart
+            charts.openshift.io/provider: RedHat
+            charts.openshift.io/supportURL: https://github.com/dperaza4dustbit/helm-chart
+        kubeversion: '>=1.20.0'
+        dependencies: []
+        type: application
+    chart-overrides: ""
+results:
+    - check: v1.0/not-contain-csi-objects
+      type: Mandatory
+      outcome: PASS
+      reason: CSI objects do not exist
+    - check: v1.0/not-contains-crds
+      type: Mandatory
+      outcome: PASS
+      reason: Chart does not contain CRDs
+    - check: v1.0/required-annotations-present
+      type: Mandatory
+      outcome: PASS
+      reason: All required annotations present
+    - check: v1.0/contains-values
+      type: Mandatory
+      outcome: PASS
+      reason: Values file exist
+    - check: v1.0/has-readme
+      type: Mandatory
+      outcome: PASS
+      reason: Chart has a README
+    - check: v1.0/is-helm-v3
+      type: Mandatory
+      outcome: PASS
+      reason: API version is V2, used in Helm 3
+    - check: v1.0/contains-values-schema
+      type: Mandatory
+      outcome: PASS
+      reason: Values schema file exist
+    - check: v1.0/helm-lint
+      type: Mandatory
+      outcome: PASS
+      reason: Helm lint successful
+    - check: v1.0/chart-testing
+      type: Mandatory
+      outcome: PASS
+      reason: Chart tests have passed
+    - check: v1.0/images-are-certified
+      type: Mandatory
+      outcome: PASS
+      reason: 'Image is Red Hat certified : registry.access.redhat.com/rhscl/postgresql-10-rhel7:latest'
+    - check: v1.0/signature-is-valid
+      type: Mandatory
+      outcome: PASS
+      reason: 'Chart is signed : Signature verification passed'
+    - check: v1.0/contains-test
+      type: Mandatory
+      outcome: PASS
+      reason: Chart test files exist
+    - check: v1.1/has-kubeversion
+      type: Mandatory
+      outcome: PASS
+      reason: Kubernetes version specified
+
