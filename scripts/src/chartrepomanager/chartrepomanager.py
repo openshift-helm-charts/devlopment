@@ -102,6 +102,7 @@ def prepare_chart_tarball_for_release(category, organization, chart, version,sig
     shutil.copy(path, chart_file_name)
 
     if signed_chart:
+        print("[INFO] Signed chart - include PROV file")
         prov_file_name = f"{chart_file_name}.prov"
         new_prov_file_name = f"{new_chart_file_name}.prov"
         path = os.path.join("charts", category, organization, chart, version, prov_file_name)
@@ -116,8 +117,8 @@ def prepare_chart_tarball_for_release(category, organization, chart, version,sig
         key_in_owners = signedchart.get_pgp_key_from_owners(owners_path)
         if key_in_owners:
             key_file_name = f"{new_chart_file_name}.key"
-            key_file_path = os.path.join(".cr-release-packages", key_file_name)
-            signedchart.create_public_key_file(key_in_owners,key_file_path)
+            signedchart.create_public_key_file(key_in_owners,key_file_name)
+            shutil.copy(key_file_name, f".cr-release-packages/{key_file_name}")
 
 
 def push_chart_release(repository, organization, commit_hash):
