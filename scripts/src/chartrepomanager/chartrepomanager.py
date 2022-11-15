@@ -82,12 +82,11 @@ def prepare_chart_source_for_release(category, organization, chart, version):
     print(out.stdout.decode("utf-8"))
     print(out.stderr.decode("utf-8"))
     chart_file_name = f"{chart}-{version}.tgz"
-    new_chart_file_name = f"{organization}-{chart}-{version}.tgz"
     try:
-        os.remove(os.path.join(".cr-release-packages", new_chart_file_name))
+        os.remove(os.path.join(".cr-release-packages", chart_file_name))
     except FileNotFoundError:
         pass
-    shutil.copy(f"{chart}-{version}.tgz" , f".cr-release-packages/{new_chart_file_name}")
+    shutil.copy(f"{chart}-{version}.tgz" , f".cr-release-packages/{chart_file_name}")
 
 def prepare_chart_tarball_for_release(category, organization, chart, version,signed_chart):
     print("[INFO] prepare chart tarball for release. %s, %s, %s, %s" % (category, organization, chart, version))
@@ -316,7 +315,7 @@ def update_chart_annotation(category, organization, chart_file_name, chart, repo
         vendor_name = out["vendor"]["name"]
         annotations["charts.openshift.io/provider"] = vendor_name
 
-    out = subprocess.run(["tar", "zxvf", os.path.join(".cr-release-packages", f"{organization}-{chart_file_name}"), "-C", dr], capture_output=True)
+    out = subprocess.run(["tar", "zxvf", os.path.join(".cr-release-packages", f"{chart_file_name}"), "-C", dr], capture_output=True)
     print(out.stdout.decode("utf-8"))
     print(out.stderr.decode("utf-8"))
 
@@ -393,7 +392,7 @@ def main():
 
         print("[INFO] Updating chart annotation")
         update_chart_annotation(category, organization, chart_file_name, chart, report_path)
-        chart_url = f"https://github.com/{args.repository}/releases/download/{organization}-{chart}-{version}/{organization}-{chart}-{version}.tgz"
+        chart_url = f"https://github.com/{args.repository}/releases/download/{organization}-{chart}-{version}/{chart_file_name}"
         print("[INFO] Helm package was released at %s" % chart_url)
         print("[INFO] Creating index from chart")
         chart_entry = create_index_from_chart(indexdir, args.repository, branch, category, organization, chart, version, chart_url)
