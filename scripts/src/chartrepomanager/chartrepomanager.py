@@ -405,16 +405,17 @@ def main():
         print("[INFO] Creating index from report")
         chart_entry, chart_url = create_index_from_report(category, report_path)
 
-    tag = os.environ.get("CHART_NAME_WITH_VERSION")
-    if not tag:
-        print("[ERROR] Internal error: missing chart name with version (tag)")
-        sys.exit(1)
-    print(f"::set-output name=tag::{tag}")
+    if not provider_delivery:
+        tag = os.environ.get("CHART_NAME_WITH_VERSION")
+        if not tag:
+            print("[ERROR] Internal error: missing chart name with version (tag)")
+            sys.exit(1)
+        print(f"::set-output name=tag::{tag}")
 
-    current_dir = os.getcwd()
-    print(f"::set-output name=report_file::{current_dir}/report.yaml")
-    if public_key_file:
-        print(f"[INFO] Add key file for release : {current_dir}/{public_key_file}")
-        print(f"::set-output name=public_key_file::{current_dir}/{public_key_file}")
+        current_dir = os.getcwd()
+        print(f"::set-output name=report_file::{current_dir}/report.yaml")
+        if public_key_file:
+            print(f"[INFO] Add key file for release : {current_dir}/{public_key_file}")
+            print(f"::set-output name=public_key_file::{current_dir}/{public_key_file}")
 
     update_index_and_push(indexfile,indexdir, args.repository, branch, category, organization, chart, version, chart_url, chart_entry, args.pr_number, provider_delivery)
